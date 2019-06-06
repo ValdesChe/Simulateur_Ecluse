@@ -1,16 +1,13 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import utils.Constantes;
 import utils.StringConstants;
@@ -57,7 +54,7 @@ public class Ecluse extends Application {
         menuBar.getMenus().add(menuModeFonctionnement);
         menuBar.getMenus().add(menuApropos);
 
-        scene = new Scene(root, Constantes.WINDOWS_WIDTH, Constantes.WINDOWS_HEIGHT);
+        scene = new Scene(root, Constantes.WINDOWS_WIDTH, Constantes.WINDOWS_HEIGHT + Constantes.MENU_OFFSET );
 
         //
         borderPane = new BorderPane();
@@ -74,7 +71,7 @@ public class Ecluse extends Application {
         root.getChildren().add(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
-        this.initResourses();
+        this.initResourses(Constantes.AMONT_VERS_AVAL);
         this.intialiserEnvironement();
     }
 
@@ -82,9 +79,9 @@ public class Ecluse extends Application {
         addToWorld(ressources.backgroundView, ressources.porteAmontView, ressources.porteAvalView, ressources.sasView, ressources.bateauView);
     }
 
-    private void initResourses() {
+    private void initResourses(int sens) {
         ressources = new Resources();
-        ressources.chargerRessources();
+        ressources.chargerRessources(sens);
     }
 
 

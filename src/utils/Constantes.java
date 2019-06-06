@@ -20,14 +20,23 @@ public class Constantes {
     
     // Sas 
     public static final short SAS_IMAGE_WIDTH = 409;
-    public static final short SAS_IMAGE_HEIGHT = 210;
-
     public static final short SAS_X = PORTE_AMONT_X + 21;   
-    public static final short SAS_Y = PORTE_AMONT_Y + 26;
+
+    // Sas sens Direct
+    public static final short SAS_IMAGE_MAX_HEIGHT = 81;
+    public static final short SAS_Y_SENS_DIRECT = 475;
     
-    // 
-    public static final short BATEAU_X = 5;
-    public static final short BATEAU_Y = PORTE_AMONT_Y - 44;
+    // Sas Sens Inverse
+    public static final short SAS_IMAGE_MIN_HEIGHT = 210;
+    public static final short SAS_Y_SENS_INVERSE = PORTE_AMONT_Y + 26;
+
+    // Bateau Sens Direct
+    public static final short BATEAU_X_SENS_DIRECT = 5;
+    public static final short BATEAU_Y_SENS_DIRECT = PORTE_AMONT_Y - 25;
+    
+    // Bateau Sens Inverse
+    public static final short BATEAU_X_SENS_INVERSE = WINDOWS_WIDTH - 200;
+    public static final short BATEAU_Y_SENS_INVERSE = 480 - 56;
 
     // Differentes etapes du parcours de l'ecluse
     public static final short NIVEAU1 = 1; // Amont
@@ -36,10 +45,10 @@ public class Constantes {
 
     // Constantes sens de parcours
     public static final short AMONT_VERS_AVAL = 1;
-    public static final short AVAL_VERS_AMONT= -1;
+    public static final short AVAL_VERS_AMONT = -1;
 
     // Simulation modes
-    public static final short  MODE_MANUEL = 1;
+    public static final short MODE_MANUEL = 1;
     public static final short MODE_AUTO = -1;
 
     // OffSet for menu
