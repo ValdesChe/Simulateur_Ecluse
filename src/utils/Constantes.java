@@ -14,9 +14,17 @@ public class Constantes {
     public static final short PORTE_AMONT_X = 280; // Amont
     public static final short PORTE_AMONT_Y = 320; // Amont
 
-    public static final short PORTE_AVAL_X = 710; // Amont
-    public static final short PORTE_AVAL_Y = 320; // Amont
+    public static final short PORTE_AVAL_X = 710; // Aval
+    public static final short PORTE_AVAL_Y = 320; // Aval
+    
+    
+    // Sas 
+    public static final int SAS_IMAGE_WIDTH = 409;
+    public static final int SAS_IMAGE_HEIGHT = 210;
 
+    public static final int SAS_X = PORTE_AMONT_X + 21;   
+    public static final int SAS_Y = PORTE_AMONT_Y + 26;
+    
 
     // Differentes etapes du parcours de l'ecluse
     public static final short NIVEAU1 = 1; // Amont
