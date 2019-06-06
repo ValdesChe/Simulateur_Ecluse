@@ -42,6 +42,9 @@ public class Constantes {
     public static final short  MODE_MANUEL = 1;
     public static final short MODE_AUTO = -1;
 
+    // OffSet for menu
+    public static final short MENU_OFFSET = 15;
+
     // Listes des messages à afficher
     public static final String MESSAGE_ERREUR_ = "Impossible de faire cette action";
 }
