@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import utils.Constantes;
 
 /**
  * Created by ValdoR on 2019-06-05.
@@ -20,7 +21,7 @@ public class Ecluse extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         root = new Pane();
-        scene = new Scene(root, 1100, 650);
+        scene = new Scene(root, Constantes.WINDOWS_WIDTH, Constantes.WINDOWS_HEIGHT);
 
         primaryStage.setScene(scene);
         primaryStage.show();
