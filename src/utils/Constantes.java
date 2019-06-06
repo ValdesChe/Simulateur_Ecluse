@@ -19,12 +19,15 @@ public class Constantes {
     
     
     // Sas 
-    public static final int SAS_IMAGE_WIDTH = 409;
-    public static final int SAS_IMAGE_HEIGHT = 210;
+    public static final short SAS_IMAGE_WIDTH = 409;
+    public static final short SAS_IMAGE_HEIGHT = 210;
 
-    public static final int SAS_X = PORTE_AMONT_X + 21;   
-    public static final int SAS_Y = PORTE_AMONT_Y + 26;
+    public static final short SAS_X = PORTE_AMONT_X + 21;   
+    public static final short SAS_Y = PORTE_AMONT_Y + 26;
     
+    // 
+    public static final short BATEAU_X = 5;
+    public static final short BATEAU_Y = PORTE_AMONT_Y - 44;
 
     // Differentes etapes du parcours de l'ecluse
     public static final short NIVEAU1 = 1; // Amont

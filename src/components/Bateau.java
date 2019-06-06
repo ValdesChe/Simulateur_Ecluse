@@ -1,18 +1,18 @@
 package components;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * @author Mohammed Yassine Chraibi 
+ *
+ * @author Yassine
  */
-public class Sas {
+public class Bateau {
     private ImageView image;
-
-    public Sas(ImageView img) {
+    
+    public Bateau(ImageView img){
         image = img;
     }
-
+    
     public ImageView getImage(){
         return image;
     }
@@ -20,4 +20,5 @@ public class Sas {
     public void setImage(ImageView img){
         this.image = img;
     }
+    
 }

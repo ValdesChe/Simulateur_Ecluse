@@ -1,3 +1,4 @@
+import components.Bateau;
 import components.Porte;
 import components.Sas;
 import javafx.scene.image.Image;
@@ -24,6 +25,10 @@ public class Resources {
     Image sasImage;
     ImageView sasView;
 
+    // Bateau
+    Bateau bateau;
+    Image bateauImage;
+    ImageView bateauView;
     /**
      *  Charger les ressources du Jeu
      */
@@ -33,6 +38,7 @@ public class Resources {
             porteAmontImage = new Image(Resources.class.getResourceAsStream("ressources/porte.png"));
             porteAvalImage = new Image(Resources.class.getResourceAsStream("ressources/porte.png"));
             sasImage = new Image(Resources.class.getResourceAsStream("ressources/sas.png"));
+            bateauImage = new Image(Resources.class.getResourceAsStream("ressources/bateau1.png"));
             // attching
             attachDefaultImages();
         } catch (Exception e) {
@@ -65,6 +71,12 @@ public class Resources {
             sasView.setTranslateX(Constantes.SAS_X);
             sasView.setTranslateY(Constantes.SAS_Y);
             sas = new Sas(sasView);
+            
+            // 
+            bateauView = new ImageView(bateauImage);
+            bateauView.setTranslateX(Constantes.BATEAU_X);
+            bateauView.setTranslateY(Constantes.BATEAU_Y);
+            bateau = new Bateau(bateauView);
         } catch (Exception e) {
             System.out.println("error attaching imgs");
         }
