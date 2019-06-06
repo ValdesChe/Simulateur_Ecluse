@@ -1,10 +1,7 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import utils.Constantes;
 
@@ -25,7 +22,7 @@ public class Ecluse extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        this.initResourses();
+        this.initResourses(Constantes.AMONT_VERS_AVAL);
         this.intialiserEnvironement();
     }
 
@@ -33,9 +30,9 @@ public class Ecluse extends Application {
         addToWorld(ressources.backgroundView, ressources.porteAmontView, ressources.porteAvalView, ressources.sasView, ressources.bateauView);
     }
 
-    private void initResourses() {
+    private void initResourses(int sens) {
         ressources = new Resources();
-        ressources.chargerRessources();
+        ressources.chargerRessources(sens);
     }
 
     private void addToWorld(Node... n) {
