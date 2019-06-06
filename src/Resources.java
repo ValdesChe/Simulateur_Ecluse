@@ -54,20 +54,9 @@ public class Resources {
         try {
             //
             backgroundView = new ImageView(imageBackground);
-
-            //
-            porteAmontView = new ImageView(porteAmontImage);
-            porteAmontView.setTranslateX(Constantes.PORTE_AMONT_X);
-            porteAmontView.setTranslateY(Constantes.PORTE_AMONT_Y);
-            porteAmont = new Porte(porteAmontView);
-             
-            //
-            porteAvalView = new ImageView(porteAvalImage);
-            porteAvalView.setTranslateX(Constantes.PORTE_AVAL_X);
-            porteAvalView.setTranslateY(Constantes.PORTE_AVAL_Y);
-            porteAval = new Porte(porteAvalView);
             
-            
+            // Sas et Bateau dans le sens Direct
+                        
             sasView = new ImageView(sasImage);
             sasView.setPreserveRatio(false);
             sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
@@ -80,6 +69,7 @@ public class Resources {
             bateauView.setTranslateX(Constantes.BATEAU_X_SENS_DIRECT);
             bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_DIRECT);
             
+            // Sas et Bateau si on est dans le sens inverse
             if(sens == Constantes.AVAL_VERS_AMONT){
                 // Sas dans le sens inverse: Aval Vers Amont
                 sasView.setPreserveRatio(false);
@@ -93,7 +83,19 @@ public class Resources {
                 bateauView.setTranslateX(Constantes.BATEAU_X_SENS_INVERSE);
                 bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_INVERSE);
             }
+            //
+            porteAmontView = new ImageView(porteAmontImage);
+            porteAmontView.setTranslateX(Constantes.PORTE_AMONT_X);
+            porteAmontView.setTranslateY(Constantes.PORTE_AMONT_Y);
+            porteAmont = new Porte(porteAmontView);
+             
+            //
+            porteAvalView = new ImageView(porteAvalImage);
+            porteAvalView.setTranslateX(Constantes.PORTE_AVAL_X);
+            porteAvalView.setTranslateY(Constantes.PORTE_AVAL_Y);
+            porteAval = new Porte(porteAvalView);
             
+            // Initialisation des objets
             sas = new Sas(sasView);
             bateau = new Bateau(bateauView);
 

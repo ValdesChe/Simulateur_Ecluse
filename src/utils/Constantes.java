@@ -11,16 +11,18 @@ public class Constantes {
 
 
     // Position de certains objets graphiques
-    public static final short PORTE_AMONT_X = 280; // Amont
-    public static final short PORTE_AMONT_Y = 320; // Amont
+    public static final short PORTE_AMONT_X = 280; // Amont X
+    public static final short PORTE_AMONT_Y = 320; // Amont Y (Fermee)
+    public static final short PORTE_AMONT_MIN_Y = 50; // Position Y de la porte Amont (Ouverte)
+    
 
-    public static final short PORTE_AVAL_X = 710; // Aval
-    public static final short PORTE_AVAL_Y = 320; // Aval
-    
-    
+    public static final short PORTE_AVAL_X = 710; // Aval X
+    public static final short PORTE_AVAL_Y = PORTE_AMONT_Y; // Aval Y (Fermee)
+    public static final short PORTE_AVAL_MIN_Y = PORTE_AMONT_MIN_Y; // Aval Y minimum (Ouverte)
+
     // Sas 
-    public static final short SAS_IMAGE_WIDTH = 409;
-    public static final short SAS_X = PORTE_AMONT_X + 21;   
+    public static final short SAS_IMAGE_WIDTH = 453;
+    public static final short SAS_X = PORTE_AMONT_X;   
 
     // Sas sens Direct
     public static final short SAS_IMAGE_MAX_HEIGHT = 81;
