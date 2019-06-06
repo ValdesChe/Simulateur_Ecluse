@@ -1,5 +1,4 @@
 import components.Porte;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.Constantes;

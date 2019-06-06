@@ -35,7 +35,7 @@ public class Ecluse extends Application {
 
     private void initResourses() {
         ressources = new Resources();
-        ressources.loadResourses();
+        ressources.chargerRessources();
     }
 
     private void addToWorld(Node... n) {
