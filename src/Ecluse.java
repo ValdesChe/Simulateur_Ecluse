@@ -3,10 +3,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.Constantes;
@@ -75,13 +78,85 @@ public class Ecluse extends Application {
         gameContainer = new Pane();
         ecluseControlsContainer = new Pane();
 
-        borderPane.setTop(menuBar);
+        // Boutons de controle
+        GridPane boutonsPane = new GridPane();
+        boutonsPane.setMinWidth(Constantes.WINDOWS_WIDTH / 4);
+        // Amont (Labels et Boutons)
+        GridPane amontPane = new GridPane();
+        Label labelAmont = new Label("Amont");
+        Label labelVanneAmont = new Label("Vanne");
+        Label labelPorteAmont = new Label("Porte");
+        Label labelFeuAmont = new Label("Feu");
+        Button boutonOuvrirVanneAmont = new Button("Ouvrir");
+        Button boutonFermerVanneAmont = new Button("Fermer");
+        Button boutonOuvrirPorteAmont = new Button("Ouvrir");
+        Button boutonFermerPorteAmont = new Button("Fermer");
+        Button boutonAllumerFeuAmont = new Button("Allumer");
+        Button boutonEteindreFeuAmont = new Button("Eteindre");
+        amontPane.setHgap(10);
+        amontPane.setVgap(5);
+        amontPane.add(labelAmont, 1, 0);
+        
+        // Vanne
+        amontPane.add(labelVanneAmont, 0, 1);
+        amontPane.add(boutonOuvrirVanneAmont, 2, 1);
+        amontPane.add(boutonFermerVanneAmont, 3, 1);
+        // Porte
+        amontPane.add(labelPorteAmont, 0,2);
+        amontPane.add(boutonOuvrirPorteAmont, 2, 2);
+        amontPane.add(boutonFermerPorteAmont, 3, 2);
+        // Feu
+        amontPane.add(labelFeuAmont, 0,3);
+        amontPane.add(boutonAllumerFeuAmont, 2, 3);
+        amontPane.add(boutonEteindreFeuAmont, 3, 3);
 
+        
+        // Aval
+        GridPane avalPane = new GridPane();
+        Label labelAval = new Label("Aval");
+        avalPane.add(labelAval, 1,0);
+        avalPane.setHgap(10);
+        avalPane.setVgap(5);
+
+        
+        // Vanne
+        Label labelVanneAval = new Label("Vanne");
+        Button boutonOuvrirVanneAval = new Button("Ouvrir");
+        Button boutonFermerVanneAval = new Button("Fermer");
+        avalPane.add(labelVanneAval, 0, 1);
+        avalPane.add(boutonOuvrirVanneAval, 2, 1);
+        avalPane.add(boutonFermerVanneAval, 3, 1);
+        
+        // Porte
+        Label labelPorteAval = new Label("Porte");
+        Button boutonOuvrirPorteAval = new Button("Ouvrir");
+        Button boutonFermerPorteAval = new Button("Fermer");
+        avalPane.add(labelPorteAval, 0,2);
+        avalPane.add(boutonOuvrirPorteAval, 2, 2);
+        avalPane.add(boutonFermerPorteAval, 3, 2);
+        
+        // Feu
+        Label labelFeuAval = new Label("Feu");
+        Button boutonAllumerFeuAval = new Button("Allumer");
+        Button boutonEteindreFeuAval = new Button("Eteindre");
+        avalPane.add(labelFeuAval, 0,3);
+        avalPane.add(boutonAllumerFeuAval, 2, 3);
+        avalPane.add(boutonEteindreFeuAval, 3, 3);
+        
+        // Attachement des Pane Amont et Aval au Pane des Boutons
+        boutonsPane.setHgap(20);
+        boutonsPane.setVgap(10);
+        boutonsPane.add(amontPane,0,1);
+        boutonsPane.add(avalPane, 0,20);
+        borderPane.setLeft(boutonsPane);
+        // Fin boutons de controle
+        
+        
+        borderPane.setTop(menuBar);
         borderPane.prefHeight(Constantes.WINDOWS_HEIGHT);
         borderPane.prefWidthProperty().bind(scene.widthProperty());
 
         borderPane.setCenter(gameContainer);
-
         root.getChildren().add(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
