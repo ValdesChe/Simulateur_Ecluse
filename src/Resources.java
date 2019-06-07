@@ -66,8 +66,8 @@ public class Resources {
 
             // 
             bateauView = new ImageView(bateauImage);
-            bateauView.setTranslateX(Constantes.BATEAU_X_SENS_DIRECT);
-            bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_DIRECT);
+            bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
+            bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
             
             // Sas et Bateau si on est dans le sens inverse
             if(sens == Constantes.AVAL_VERS_AMONT){
@@ -80,8 +80,8 @@ public class Resources {
                 
                 // Bateau dans le sens inverse
                 bateauView = new ImageView(bateauImage);
-                bateauView.setTranslateX(Constantes.BATEAU_X_SENS_INVERSE);
-                bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_INVERSE);
+                bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
+                bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
             }
             //
             porteAmontView = new ImageView(porteAmontImage);
@@ -98,7 +98,6 @@ public class Resources {
             // Initialisation des objets
             sas = new Sas(sasView);
             bateau = new Bateau(bateauView);
-
             
         } catch (Exception e) {
             System.out.println("error attaching imgs");

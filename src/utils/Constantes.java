@@ -1,5 +1,7 @@
 package utils;
 
+import javafx.util.Duration;
+
 /**
  * Created by ValdoR on 2019-06-05.
  */
@@ -21,7 +23,7 @@ public class Constantes {
     public static final short PORTE_AVAL_MIN_Y = PORTE_AMONT_MIN_Y; // Aval Y minimum (Ouverte)
 
     // Sas 
-    public static final short SAS_IMAGE_WIDTH = 453;
+    public static final short SAS_IMAGE_WIDTH = 450;
     public static final short SAS_X = PORTE_AMONT_X;   
 
     // Sas sens Direct
@@ -32,13 +34,24 @@ public class Constantes {
     public static final short SAS_IMAGE_MIN_HEIGHT = 210;
     public static final short SAS_Y_SENS_INVERSE = PORTE_AMONT_Y + 26;
 
-    // Bateau Sens Direct
-    public static final short BATEAU_X_SENS_DIRECT = 5;
-    public static final short BATEAU_Y_SENS_DIRECT = PORTE_AMONT_Y - 25;
-    
-    // Bateau Sens Inverse
-    public static final short BATEAU_X_SENS_INVERSE = WINDOWS_WIDTH - 200;
-    public static final short BATEAU_Y_SENS_INVERSE = 480 - 56;
+    /**
+     * Positions du Bateau
+     */
+    // Bateau dans l'Amont
+    public static final short BATEAU_X_ETAPE_1_ETAT_1 = 5;
+    public static final short BATEAU_X_ETAPE_1_ETAT_2 = BATEAU_X_ETAPE_1_ETAT_1 + 100;
+    public static final short BATEAU_Y_ETAPE_1 = PORTE_AMONT_Y - 25;
+
+    // Bateau arrive au Sas venant de l'Amont
+    public static final short BATEAU_X_ETAPE_2_ETAT_1 = 315;
+    public static final short BATEAU_X_ETAPE_2_ETAT_2 = 315 + 200; 
+    public static final short BATEAU_Y_ETAPE_2_ETAT_1 = 476 - 52;
+    public static final short BATEAU_Y_ETAPE_2_ETAT_2 = PORTE_AMONT_Y - 25;
+
+    // Bateau dans l'aval
+    public static final short BATEAU_X_ETAPE_3_ETAT_1 = 740;
+    public static final short BATEAU_X_ETAPE_3_ETAT_2 = 740 + 150;
+    public static final short BATEAU_Y_ETAPE_3 = 476 - 52;
 
     // Differentes etapes du parcours de l'ecluse
     public static final short NIVEAU1 = 1; // Amont
@@ -56,6 +69,9 @@ public class Constantes {
     // OffSet for menu
     public static final short MENU_OFFSET = 15;
 
+    // Durations des transitions
+    public static final Duration DUREE = Duration.millis(2000);
+    
     // Listes des messages à afficher
     public static final String MESSAGE_ERREUR_ = "Impossible de faire cette action";
 }
