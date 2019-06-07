@@ -90,7 +90,7 @@ public class Ecluse extends Application {
     }
 
     public void intialiserEnvironement() {
-        addToWorld(ressources.backgroundView, ressources.porteAmontView, ressources.porteAvalView, ressources.sasView, ressources.bateauView);
+        addToWorld(ressources.backgroundView, ressources.sasView, ressources.bateauView, ressources.porteAmontView, ressources.porteAvalView);
     }
 
     private void initResourses(short sens) {

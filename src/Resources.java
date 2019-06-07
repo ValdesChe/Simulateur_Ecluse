@@ -54,7 +54,35 @@ public class Resources {
         try {
             //
             backgroundView = new ImageView(imageBackground);
+            
+            // Sas et Bateau dans le sens Direct
+                        
+            sasView = new ImageView(sasImage);
+            sasView.setPreserveRatio(false);
+            sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
+            sasView.setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
+            sasView.setTranslateX(Constantes.SAS_X);
+            sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
 
+            // 
+            bateauView = new ImageView(bateauImage);
+            bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
+            bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
+            
+            // Sas et Bateau si on est dans le sens inverse
+            if(sens == Constantes.AVAL_VERS_AMONT){
+                // Sas dans le sens inverse: Aval Vers Amont
+                sasView.setPreserveRatio(false);
+                sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
+                sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
+                sasView.setTranslateX(Constantes.SAS_X);
+                sasView.setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
+                
+                // Bateau dans le sens inverse
+                bateauView = new ImageView(bateauImage);
+                bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
+                bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
+            }
             //
             porteAmontView = new ImageView(porteAmontImage);
             porteAmontView.setTranslateX(Constantes.PORTE_AMONT_X);
@@ -67,36 +95,9 @@ public class Resources {
             porteAvalView.setTranslateY(Constantes.PORTE_AVAL_Y);
             porteAval = new Porte(porteAvalView);
             
-            
-            sasView = new ImageView(sasImage);
-            sasView.setPreserveRatio(false);
-            sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
-            sasView.setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
-            sasView.setTranslateX(Constantes.SAS_X);
-            sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
-
-            // 
-            bateauView = new ImageView(bateauImage);
-            bateauView.setTranslateX(Constantes.BATEAU_X_SENS_DIRECT);
-            bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_DIRECT);
-            
-            if(sens == Constantes.AVAL_VERS_AMONT){
-                // Sas dans le sens inverse: Aval Vers Amont
-                sasView.setPreserveRatio(false);
-                sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
-                sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
-                sasView.setTranslateX(Constantes.SAS_X);
-                sasView.setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
-                
-                // Bateau dans le sens inverse
-                bateauView = new ImageView(bateauImage);
-                bateauView.setTranslateX(Constantes.BATEAU_X_SENS_INVERSE);
-                bateauView.setTranslateY(Constantes.BATEAU_Y_SENS_INVERSE);
-            }
-            
+            // Initialisation des objets
             sas = new Sas(sasView);
             bateau = new Bateau(bateauView);
-
             
         } catch (Exception e) {
             System.out.println("error attaching imgs");
