@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12eb318a-b51c-4ed0-8cca-17930d7363cf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ressources/BateauSens-1.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ressources/BateauSens1.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ecluse.java" afterPath="$PROJECT_DIR$/src/Ecluse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Resources.java" afterPath="$PROJECT_DIR$/src/Resources.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/Constantes.java" afterPath="$PROJECT_DIR$/src/utils/Constantes.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,17 +18,27 @@
       <file leaf-file-name="Ecluse.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ecluse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="60" column="35" lean-forward="true" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+            <state relative-caret-position="60">
+              <caret line="137" column="58" lean-forward="false" selection-start-line="137" selection-start-column="58" selection-end-line="137" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3612#3613#0" expanded="true" />
-                <element signature="e#3665#3666#0" expanded="true" />
-                <element signature="e#3704#3705#0" expanded="true" />
-                <element signature="e#3757#3758#0" expanded="true" />
-                <marker date="1559855522179" expanded="false" signature="3801:3812" ph=" { " />
-                <marker date="1559855522179" expanded="false" signature="3825:3831" ph=" }" />
+                <element signature="e#6293#6294#0" expanded="true" />
+                <element signature="e#6346#6347#0" expanded="true" />
+                <element signature="e#6385#6386#0" expanded="true" />
+                <element signature="e#6438#6439#0" expanded="true" />
+                <marker date="1559866224080" expanded="false" signature="6482:6493" ph=" { " />
+                <marker date="1559866224080" expanded="false" signature="6506:6512" ph=" }" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Porte.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Porte.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,11 +66,9 @@
       <file leaf-file-name="Resources.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Resources.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-              <folding>
-                <marker date="1559855353925" expanded="true" signature="3701:3805" ph="{...}" />
-              </folding>
+            <state relative-caret-position="341">
+              <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,6 +87,7 @@
       <find>LEVEL</find>
       <find>side</find>
       <find>menuPane</find>
+      <find>à la position</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,10 +101,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Resources.java" />
         <option value="$PROJECT_DIR$/src/utils/Strings.java" />
         <option value="$PROJECT_DIR$/src/utils/StringConstants.java" />
         <option value="$PROJECT_DIR$/src/utils/Constantes.java" />
+        <option value="$PROJECT_DIR$/src/components/Porte.java" />
+        <option value="$PROJECT_DIR$/src/Resources.java" />
         <option value="$PROJECT_DIR$/src/Ecluse.java" />
       </list>
     </option>
@@ -196,6 +203,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Simulateur_Ecluse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Simulateur_Ecluse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -725,12 +750,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559776908750</updated>
-      <workItem from="1559776911751" duration="10426000" />
+      <workItem from="1559776911751" duration="16414000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10426000" />
+    <option name="totallyTimeSpent" value="16414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1379" height="733" extended-state="0" />
@@ -782,16 +807,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Resources.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding>
-            <marker date="1559855353925" expanded="true" signature="3701:3805" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/StringConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -808,18 +823,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Porte.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Resources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="93" column="40" lean-forward="false" selection-start-line="93" selection-start-column="40" selection-end-line="93" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Ecluse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="60" column="35" lean-forward="true" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+        <state relative-caret-position="60">
+          <caret line="137" column="58" lean-forward="false" selection-start-line="137" selection-start-column="58" selection-end-line="137" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3612#3613#0" expanded="true" />
-            <element signature="e#3665#3666#0" expanded="true" />
-            <element signature="e#3704#3705#0" expanded="true" />
-            <element signature="e#3757#3758#0" expanded="true" />
-            <marker date="1559855522179" expanded="false" signature="3801:3812" ph=" { " />
-            <marker date="1559855522179" expanded="false" signature="3825:3831" ph=" }" />
+            <element signature="e#6293#6294#0" expanded="true" />
+            <element signature="e#6346#6347#0" expanded="true" />
+            <element signature="e#6385#6386#0" expanded="true" />
+            <element signature="e#6438#6439#0" expanded="true" />
+            <marker date="1559866224080" expanded="false" signature="6482:6493" ph=" { " />
+            <marker date="1559866224080" expanded="false" signature="6506:6512" ph=" }" />
           </folding>
         </state>
       </provider>
