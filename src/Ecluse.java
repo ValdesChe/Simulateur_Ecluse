@@ -95,7 +95,7 @@ public class Ecluse extends Application {
         Button boutonEteindreFeuAmont = new Button("Eteindre");
         amontPane.setHgap(10);
         amontPane.setVgap(5);
-        amontPane.add(labelAmont, 1, 0);
+        amontPane.add(labelAmont, 0, 0);
         
         // Vanne
         amontPane.add(labelVanneAmont, 0, 1);
@@ -114,7 +114,7 @@ public class Ecluse extends Application {
         // Aval
         GridPane avalPane = new GridPane();
         Label labelAval = new Label("Aval");
-        avalPane.add(labelAval, 1,0);
+        avalPane.add(labelAval, 0,0);
         avalPane.setHgap(10);
         avalPane.setVgap(5);
 
@@ -143,11 +143,16 @@ public class Ecluse extends Application {
         avalPane.add(boutonAllumerFeuAval, 2, 3);
         avalPane.add(boutonEteindreFeuAval, 3, 3);
         
+        
+        // Label pour afficher les messages d'erreur eventuels
+        Label messagesLabel = new Label("Messages: ");
+        
         // Attachement des Pane Amont et Aval au Pane des Boutons
         boutonsPane.setHgap(20);
         boutonsPane.setVgap(10);
-        boutonsPane.add(amontPane,0,1);
-        boutonsPane.add(avalPane, 0,20);
+        boutonsPane.add(amontPane,0,4);
+        boutonsPane.add(avalPane, 0,7);
+        boutonsPane.add(messagesLabel, 0,10);
         borderPane.setLeft(boutonsPane);
         // Fin boutons de controle
         
