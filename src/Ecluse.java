@@ -217,7 +217,7 @@ public class Ecluse extends Application {
     private GridPane boutonsPane(){
         // GridPane contenant tous Boutons de controle + Messages label
         GridPane boutonsPane = new GridPane();
-        boutonsPane.setMinWidth(Constantes.WINDOWS_WIDTH / 4);
+        boutonsPane.setMinWidth(Constantes.WINDOWS_WIDTH / 5);
         
         /**
          * Amont de type GridPane contenant tous les boutons
@@ -231,7 +231,11 @@ public class Ecluse extends Application {
         // Vanne
         Label labelVanneAmont = new Label("Vanne");
         Button boutonOuvrirVanneAmont = new Button("Ouvrir");
+        EventHandler<ActionEvent> ouvrirVanneAmont = ouvrirVanneAmont();
+        boutonOuvrirVanneAmont.setOnAction(ouvrirVanneAmont);
         Button boutonFermerVanneAmont = new Button("Fermer");
+        EventHandler<ActionEvent> fermerVanneAmont = fermerVanneAmont();
+        boutonFermerVanneAmont.setOnAction(fermerVanneAmont);
         amontPane.add(labelVanneAmont, 0, 1);
         amontPane.add(boutonOuvrirVanneAmont, 2, 1);
         amontPane.add(boutonFermerVanneAmont, 3, 1);
@@ -239,7 +243,11 @@ public class Ecluse extends Application {
         // Amont Porte
         Label labelPorteAmont = new Label("Porte");
         Button boutonOuvrirPorteAmont = new Button("Ouvrir");
+        EventHandler<ActionEvent> ouvrirPorteAmont = ouvrirPorteAmont();
+        boutonOuvrirPorteAmont.setOnAction(ouvrirPorteAmont);
         Button boutonFermerPorteAmont = new Button("Fermer");
+        EventHandler<ActionEvent> fermerPorteAmont = fermerPorteAmont();
+        boutonFermerPorteAmont.setOnAction(fermerPorteAmont);
         amontPane.add(labelPorteAmont, 0,2);
         amontPane.add(boutonOuvrirPorteAmont, 2, 2);
         amontPane.add(boutonFermerPorteAmont, 3, 2);
@@ -247,7 +255,11 @@ public class Ecluse extends Application {
         // Amont Feu
         Label labelFeuAmont = new Label("Feu");
         Button boutonAllumerFeuAmont = new Button("Allumer");
+        EventHandler<ActionEvent> allumerFeuAmont = allumerFeuAmont();
+        boutonAllumerFeuAmont.setOnAction(allumerFeuAmont);
         Button boutonEteindreFeuAmont = new Button("Eteindre");
+        EventHandler<ActionEvent> eteindreFeuAmont = eteindreFeuAmont();
+        boutonEteindreFeuAmont.setOnAction(eteindreFeuAmont);
         amontPane.add(labelFeuAmont, 0,3);
         amontPane.add(boutonAllumerFeuAmont, 2, 3);
         amontPane.add(boutonEteindreFeuAmont, 3, 3);
@@ -266,7 +278,11 @@ public class Ecluse extends Application {
         // Aval Vanne
         Label labelVanneAval = new Label("Vanne");
         Button boutonOuvrirVanneAval = new Button("Ouvrir");
+        EventHandler<ActionEvent> ouvrirVanneAval = ouvrirVanneAval();
+        boutonOuvrirVanneAval.setOnAction(ouvrirVanneAval);
         Button boutonFermerVanneAval = new Button("Fermer");
+        EventHandler<ActionEvent> fermerVanneAval = fermerVanneAval();
+        boutonFermerVanneAval.setOnAction(fermerVanneAval);
         avalPane.add(labelVanneAval, 0, 1);
         avalPane.add(boutonOuvrirVanneAval, 2, 1);
         avalPane.add(boutonFermerVanneAval, 3, 1);
@@ -274,7 +290,11 @@ public class Ecluse extends Application {
         // Aval Porte
         Label labelPorteAval = new Label("Porte");
         Button boutonOuvrirPorteAval = new Button("Ouvrir");
+        EventHandler<ActionEvent> ouvrirPorteAval = ouvrirPorteAval();
+        boutonOuvrirPorteAval.setOnAction(ouvrirPorteAval);
         Button boutonFermerPorteAval = new Button("Fermer");
+        EventHandler<ActionEvent> fermerPorteAval = fermerPorteAval();
+        boutonFermerPorteAval.setOnAction(fermerPorteAval);
         avalPane.add(labelPorteAval, 0,2);
         avalPane.add(boutonOuvrirPorteAval, 2, 2);
         avalPane.add(boutonFermerPorteAval, 3, 2);
@@ -282,7 +302,11 @@ public class Ecluse extends Application {
         // Aval Feu
         Label labelFeuAval = new Label("Feu");
         Button boutonAllumerFeuAval = new Button("Allumer");
+        EventHandler<ActionEvent> allumerFeuAval = allumerFeuAval();
+        boutonAllumerFeuAval.setOnAction(allumerFeuAval);
         Button boutonEteindreFeuAval = new Button("Eteindre");
+        EventHandler<ActionEvent> eteindreFeuAval = eteindreFeuAval();
+        boutonEteindreFeuAval.setOnAction(eteindreFeuAval);
         avalPane.add(labelFeuAval, 0,3);
         avalPane.add(boutonAllumerFeuAval, 2, 3);
         avalPane.add(boutonEteindreFeuAval, 3, 3);
@@ -299,5 +323,143 @@ public class Ecluse extends Application {
         boutonsPane.add(messagesLabel, 0,10);
         
         return boutonsPane;
+    }
+    
+    // Amont
+    
+    /**
+     * Ouvrir Vanne Amont
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> ouvrirVanneAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Ouvrir Vanne Amont");
+            }
+        };
+    }
+    /**
+     * Fermer Vanne Amont
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> fermerVanneAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Fermer Vanne Amont");
+            }
+        };
+    }
+    /**
+     * Ouvrir Porte Amont
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> ouvrirPorteAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Ouvrir Porte Amont");
+            }
+        };
+    }
+    /**
+     * Fermer Porte Amont
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> fermerPorteAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Fermer Porte Amont");
+            }
+        };
+    }
+    /**
+     * Allumer Feu (Vert) Amont
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> allumerFeuAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Allumer Feu Amont");
+            }
+        };
+    }
+    /**
+     * Eteindre Feu (Vert) Amont (Le feu devient rouge)
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> eteindreFeuAmont(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Eteindre Feu Amont");
+            }
+        };
+    }
+    
+    // Aval
+    
+    /**
+     * Ouvrir Vanne Aval
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> ouvrirVanneAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Ouvrir Vanne Aval");
+            }
+        };
+    }
+    /**
+     * Fermer Vanne Aval
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> fermerVanneAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Fermer Vanne Aval");
+            }
+        };
+    }
+    /**
+     * Ouvrir Porte Aval
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> ouvrirPorteAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Ouvrir Porte Aval");
+            }
+        };
+    }
+    /**
+     * Fermer Porte Aval
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> fermerPorteAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Fermer Porte Aval");
+            }
+        };
+    }
+    /**
+     * Allumer Feu (Vert) Aval
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> allumerFeuAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Allumer Feu Aval");
+            }
+        };
+    }
+    /**
+     * Eteindre Feu (Vert) Aval (Le feu devient rouge)
+     * @return EventHandler<ActionEvent>
+     */
+    public EventHandler<ActionEvent> eteindreFeuAval(){
+        return new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                System.out.println("Eteindre Feu Aval");
+            }
+        };
     }
 }
