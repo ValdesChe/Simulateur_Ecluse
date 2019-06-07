@@ -11,7 +11,7 @@ import utils.Constantes;
 public class Bateau {
     private ImageView image;
     
-    private TranslateTransition transitionX; 
+    private TranslateTransition transition; 
 
     public Bateau(ImageView img){
         image = img;
@@ -26,13 +26,23 @@ public class Bateau {
     }
     
     public void bougerX(int depart, int fin){ 
-        transitionX = new TranslateTransition();
-        transitionX.setNode(getImage());
-        transitionX.setByX(fin - depart);
-        transitionX.setDuration(Constantes.DUREE);
-        transitionX.setCycleCount(1);
-        transitionX.setAutoReverse(false);
-        transitionX.play();
+        transition = new TranslateTransition();
+        transition.setNode(getImage());
+        transition.setByX(fin - depart);
+        transition.setDuration(Constantes.DUREE);
+        transition.setCycleCount(1);
+        transition.setAutoReverse(false);
+        transition.play();
+    }
+    
+    public void bougerY(int depart, int fin){ 
+        transition = new TranslateTransition();
+        transition.setNode(getImage());
+        transition.setByY(fin - depart);
+        transition.setDuration(Constantes.DUREE);
+        transition.setCycleCount(1);
+        transition.setAutoReverse(false);
+        transition.play();
     }
     
 }
