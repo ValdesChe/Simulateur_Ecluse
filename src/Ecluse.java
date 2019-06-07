@@ -25,7 +25,7 @@ public class Ecluse extends Application {
     Scene scene;
     BorderPane borderPane;
     Pane gameContainer;
-    Pane ecluseControlsContainer;
+    GridPane ecluseControlsContainer;
 
 
     // Variables de controle de l'etat ecluse
@@ -76,10 +76,10 @@ public class Ecluse extends Application {
         //
         borderPane = new BorderPane();
         gameContainer = new Pane();
-        ecluseControlsContainer = new Pane();
+        ecluseControlsContainer = boutonsPane();
 
         // Faire un Render des boutons de controle)
-        borderPane.setLeft(boutonsPane());
+        borderPane.setLeft(ecluseControlsContainer);
         // Fin boutons de controle
         
         
@@ -215,40 +215,47 @@ public class Ecluse extends Application {
      * 
      */
     private GridPane boutonsPane(){
-                // Boutons de controle
+        // GridPane contenant tous Boutons de controle + Messages label
         GridPane boutonsPane = new GridPane();
         boutonsPane.setMinWidth(Constantes.WINDOWS_WIDTH / 4);
-        // Amont (Labels et Boutons)
+        
+        /**
+         * Amont de type GridPane contenant tous les boutons
+         */
         GridPane amontPane = new GridPane();
         Label labelAmont = new Label("Amont");
-        Label labelVanneAmont = new Label("Vanne");
-        Label labelPorteAmont = new Label("Porte");
-        Label labelFeuAmont = new Label("Feu");
-        Button boutonOuvrirVanneAmont = new Button("Ouvrir");
-        Button boutonFermerVanneAmont = new Button("Fermer");
-        Button boutonOuvrirPorteAmont = new Button("Ouvrir");
-        Button boutonFermerPorteAmont = new Button("Fermer");
-        Button boutonAllumerFeuAmont = new Button("Allumer");
-        Button boutonEteindreFeuAmont = new Button("Eteindre");
         amontPane.setHgap(10);
         amontPane.setVgap(5);
         amontPane.add(labelAmont, 0, 0);
         
         // Vanne
+        Label labelVanneAmont = new Label("Vanne");
+        Button boutonOuvrirVanneAmont = new Button("Ouvrir");
+        Button boutonFermerVanneAmont = new Button("Fermer");
         amontPane.add(labelVanneAmont, 0, 1);
         amontPane.add(boutonOuvrirVanneAmont, 2, 1);
         amontPane.add(boutonFermerVanneAmont, 3, 1);
-        // Porte
+        
+        // Amont Porte
+        Label labelPorteAmont = new Label("Porte");
+        Button boutonOuvrirPorteAmont = new Button("Ouvrir");
+        Button boutonFermerPorteAmont = new Button("Fermer");
         amontPane.add(labelPorteAmont, 0,2);
         amontPane.add(boutonOuvrirPorteAmont, 2, 2);
         amontPane.add(boutonFermerPorteAmont, 3, 2);
-        // Feu
+        
+        // Amont Feu
+        Label labelFeuAmont = new Label("Feu");
+        Button boutonAllumerFeuAmont = new Button("Allumer");
+        Button boutonEteindreFeuAmont = new Button("Eteindre");
         amontPane.add(labelFeuAmont, 0,3);
         amontPane.add(boutonAllumerFeuAmont, 2, 3);
         amontPane.add(boutonEteindreFeuAmont, 3, 3);
 
         
-        // Aval
+        /**
+         * GridPane imbrique contenant Aval et ses controles
+         */
         GridPane avalPane = new GridPane();
         Label labelAval = new Label("Aval");
         avalPane.add(labelAval, 0,0);
@@ -256,7 +263,7 @@ public class Ecluse extends Application {
         avalPane.setVgap(5);
 
         
-        // Vanne
+        // Aval Vanne
         Label labelVanneAval = new Label("Vanne");
         Button boutonOuvrirVanneAval = new Button("Ouvrir");
         Button boutonFermerVanneAval = new Button("Fermer");
@@ -264,7 +271,7 @@ public class Ecluse extends Application {
         avalPane.add(boutonOuvrirVanneAval, 2, 1);
         avalPane.add(boutonFermerVanneAval, 3, 1);
         
-        // Porte
+        // Aval Porte
         Label labelPorteAval = new Label("Porte");
         Button boutonOuvrirPorteAval = new Button("Ouvrir");
         Button boutonFermerPorteAval = new Button("Fermer");
@@ -272,7 +279,7 @@ public class Ecluse extends Application {
         avalPane.add(boutonOuvrirPorteAval, 2, 2);
         avalPane.add(boutonFermerPorteAval, 3, 2);
         
-        // Feu
+        // Aval Feu
         Label labelFeuAval = new Label("Feu");
         Button boutonAllumerFeuAval = new Button("Allumer");
         Button boutonEteindreFeuAval = new Button("Eteindre");
@@ -290,6 +297,7 @@ public class Ecluse extends Application {
         boutonsPane.add(amontPane,0,4);
         boutonsPane.add(avalPane, 0,7);
         boutonsPane.add(messagesLabel, 0,10);
+        
         return boutonsPane;
     }
 }
