@@ -1,25 +1,44 @@
+package ecluse;
+
 import components.Bateau;
+import components.Feu;
 import components.Porte;
 import components.Sas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 import utils.Constantes;
 
+
+import ressources.ClassHelper;
+import utils.StringConstants;
 public class Resources {
 
     Image porteAmontImage;
     Image porteAvalImage;
 
     Image imageBackground;
+    
+    public static Image imageFeuAmont;
+    public static Image imageFeuAval;
+    public Image imageFeuVanneAmont;
+    public Image imageFeuVanneAval;
 
     ImageView porteAmontView;
     ImageView porteAvalView;
     ImageView backgroundView;
-
+    
+    public ImageView feuAmontView;
+    public ImageView feuAvalView;
+    public ImageView feuVanneAmontView;
+    public ImageView feuVanneAvalView;
+    
     Porte porteAmont;
     Porte porteAval;
     
+    Feu feuAmont;
+    Feu feuAval;
+    Feu feuVanneAmont;
+    Feu feuVanneAval;
     // Sas (Modelisee comme un rectangle)
     Sas sas;
     Image sasImage;
@@ -34,14 +53,20 @@ public class Resources {
      */
     public void chargerRessources(int sens) {
         try {
-            imageBackground = new Image(Resources.class.getResourceAsStream("ressources/background.jpg"));
-            porteAmontImage = new Image(Resources.class.getResourceAsStream("ressources/porte.png"));
-            porteAvalImage = new Image(Resources.class.getResourceAsStream("ressources/porte.png"));
-            sasImage = new Image(Resources.class.getResourceAsStream("ressources/sas.png"));
+            imageBackground = new Image(ClassHelper.class.getResourceAsStream("background.jpg"));
+            porteAmontImage = new Image(ClassHelper.class.getResourceAsStream("porte.png"));
+            porteAvalImage = new Image(ClassHelper.class.getResourceAsStream("porte.png"));
+            sasImage = new Image(ClassHelper.class.getResourceAsStream("sas.png"));
+            imageFeuAmont = new Image(ClassHelper.class.getResourceAsStream("feuxrouge.png"));
+            imageFeuAval = new Image(ClassHelper.class.getResourceAsStream("feuxrouge.png"));
+            imageFeuVanneAmont = new Image(ClassHelper.class.getResourceAsStream("vannefeuxrouge.png"));
+            imageFeuVanneAval = new Image(ClassHelper.class.getResourceAsStream("vannefeuxrouge.png"));
+            
+            
             if(sens == Constantes.AMONT_VERS_AVAL)
-                bateauImage = new Image(Resources.class.getResourceAsStream("ressources/BateauSens1.gif"));
+                bateauImage = new Image(ClassHelper.class.getResourceAsStream("BateauSens1.gif"));
             else
-                bateauImage = new Image(Resources.class.getResourceAsStream("ressources/BateauSens-1.gif"));
+                bateauImage = new Image(ClassHelper.class.getResourceAsStream("BateauSens-1.gif"));
 
             // attching
             attachDefaultImages(sens);
@@ -60,10 +85,29 @@ public class Resources {
             sasView = new ImageView(sasImage);
             sasView.setPreserveRatio(false);
             sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
-            sasView.setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
+            sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
             sasView.setTranslateX(Constantes.SAS_X);
             sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
 
+            // Attachement des images de feux
+            
+            feuAmontView = new ImageView(imageFeuAmont);
+            feuAmontView.setTranslateX(Constantes.FEU_AMONT_X);
+            feuAmontView.setTranslateY(Constantes.FEU_AMONT_Y);
+            
+            feuAvalView = new ImageView(imageFeuAval);
+            feuAvalView.setTranslateX(Constantes.FEU_AVAL_X);
+            feuAvalView.setTranslateY(Constantes.FEU_AVAL_Y);
+            
+            feuVanneAmontView = new ImageView(imageFeuVanneAmont);
+            feuVanneAmontView.setTranslateX(Constantes.FEU_VANNE_AMONT_X);
+            feuVanneAmontView.setTranslateY(Constantes.FEU_VANNE_AMONT_Y);
+            
+            feuVanneAvalView = new ImageView(imageFeuVanneAval);
+            feuVanneAvalView.setTranslateX(Constantes.FEU_VANNE_AVAL_X);
+            feuVanneAvalView.setTranslateY(Constantes.FEU_VANNE_AVAL_Y);
+            
+            
             // 
             bateauView = new ImageView(bateauImage);
             bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
@@ -98,6 +142,12 @@ public class Resources {
             // Initialisation des objets
             sas = new Sas(sasView);
             bateau = new Bateau(bateauView);
+            
+            feuAmont = new Feu(feuAmontView, StringConstants.FEU_TYPE_FEU);
+            feuAval = new Feu(feuAvalView, StringConstants.FEU_TYPE_FEU);
+            
+            feuVanneAmont = new Feu(feuVanneAmontView, StringConstants.FEU_TYPE_VANNE_AMONT);
+            feuVanneAval = new Feu(feuVanneAvalView, StringConstants.FEU_TYPE_VANNE_AVAL);
             
         } catch (Exception e) {
             System.out.println("error attaching imgs");

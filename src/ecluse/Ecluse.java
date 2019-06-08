@@ -1,3 +1,6 @@
+package ecluse;
+
+import components.Etat;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +23,7 @@ import utils.StringConstants;
  */
 public class Ecluse extends Application {
 
-    Resources ressources;
+    static Resources ressources;
     Pane root;
     Scene scene;
     BorderPane borderPane;
@@ -40,7 +43,7 @@ public class Ecluse extends Application {
     public short sensCirculation = Constantes.AMONT_VERS_AVAL;
 
     //
-
+    public short niveauSas = Constantes.SAS_NIVEAU_MIN;
 
 
     @Override
@@ -96,7 +99,15 @@ public class Ecluse extends Application {
     }
 
     public void intialiserEnvironement() {
-        addToWorld(ressources.backgroundView, ressources.sasView, ressources.bateauView, ressources.porteAmontView, ressources.porteAvalView);
+        addToWorld(ressources.backgroundView, 
+                   ressources.sasView,  
+                   ressources.feuAmontView,  
+                   ressources.feuAvalView, 
+                   ressources.bateauView, 
+                   ressources.porteAmontView, 
+                   ressources.porteAvalView,
+                   ressources.feuVanneAmontView,
+                   ressources.feuVanneAvalView);
     }
 
     private void initResourses(short sens) {
@@ -334,7 +345,16 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Ouvrir Vanne Amont");
+                // La vanne aval doit s'ouvrir si la porte amont est fermee
+                // Et le niveau d'eau dans le sas est stable (Max ou Min)
+                if(niveauSas == Constantes.SAS_NIVEAU_MIN){
+                    ressources.feuVanneAmont.allumer(ressources);
+                    ressources.feuVanneAmont.setEtat(Etat.OUVERT);
+                    // Le sas est au minimum, le faire monter
+                    ressources.sas.passerNiveauHaut();
+                    ressources.sas.setEtat(Constantes.SAS_NIVEAU_MAX);
+                    niveauSas = Constantes.SAS_NIVEAU_MAX;
+                }
             }
         };
     }
@@ -345,7 +365,8 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerVanneAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Fermer Vanne Amont");
+                ressources.feuVanneAmont.eteindre(ressources);
+                ressources.feuVanneAmont.setEtat(Etat.FERME);
             }
         };
     }
@@ -356,7 +377,16 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirPorteAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Ouvrir Porte Amont");
+                if(niveauSas == Constantes.SAS_NIVEAU_MIN){
+                    System.out.println("La porte amont ne peut pas s'ouvrir a cause de la pression. ");
+                }
+                else{
+                    if(ressources.porteAmont.getEtat() != Etat.OUVERT){
+                        ressources.porteAmont.ouvrir();
+                        ressources.porteAmont.setEtat(Etat.OUVERT);
+                    }
+                }
+                
             }
         };
     }
@@ -367,7 +397,18 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerPorteAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Fermer Porte Amont");
+                if(ressources.feuAmont.getEtat() == Etat.OUVERT){
+                    System.out.println("La porte amont ne peut pas se fermer car un bateau peut passer . ");
+                }
+                else{
+                    if(ressources.porteAmont.getEtat() == Etat.FERME){
+                        System.out.println("La porte est deja fermee");
+                        return;
+                    }
+                        
+                   ressources.porteAmont.fermer();
+                   ressources.porteAmont.setEtat(Etat.FERME);
+                }
             }
         };
     }
@@ -378,7 +419,21 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> allumerFeuAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Allumer Feu Amont");
+                if(ressources.feuAmont.getEtat() == Etat.OUVERT) {
+                    System.out.println("Le feu est deja ouvert");
+                    return;
+                }
+                if(ressources.porteAmont.getEtat() == Etat.OUVERT) {
+                    ressources.feuAmont.allumer(ressources);
+                    ressources.feuAmont.setEtat(Etat.OUVERT);
+                    // Si le bateau est dans le premier niveau, le faire passer vers le deuxieme
+                    if(positionActuelleBateau == Constantes.NIVEAU1){
+                        ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_1_ETAT_1,Constantes.BATEAU_X_ETAPE_2_ETAT_1);
+                        positionActuelleBateau = Constantes.NIVEAU2;
+                    }
+                } else{
+                    System.out.println("Le feu ne peut etre allume car la porte amont est fermee ");
+                }
             }
         };
     }
@@ -389,7 +444,14 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> eteindreFeuAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Eteindre Feu Amont");
+               if(ressources.feuAmont.getEtat() == Etat.FERME) {
+                    System.out.println("Le feu est deja ferme");
+                    return;
+                }
+                if(ressources.feuAmont.getEtat() == Etat.OUVERT) {
+                    ressources.feuAmont.eteindre(ressources);
+                    ressources.feuAmont.setEtat(Etat.FERME);
+                }
             }
         };
     }
@@ -403,7 +465,12 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Ouvrir Vanne Aval");
+                if(niveauSas == Constantes.SAS_NIVEAU_MAX){
+                    // Le sas est au minimum, le faire monter
+                    ressources.sas.passerNiveauBas();
+                    ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
+                    niveauSas = Constantes.SAS_NIVEAU_MIN;
+                }
             }
         };
     }
@@ -414,7 +481,12 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Fermer Vanne Aval");
+                if(niveauSas == Constantes.SAS_NIVEAU_MAX){
+                    // Le sas est au minimum, le faire monter
+                    ressources.sas.passerNiveauBas();
+                    ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
+                    niveauSas = Constantes.SAS_NIVEAU_MIN;
+                }
             }
         };
     }

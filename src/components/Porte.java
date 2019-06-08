@@ -20,12 +20,12 @@ public class Porte extends Equipement {
 
     @Override
     public void ouvrir() {
-
+        bougerY(Constantes.PORTE_AMONT_Y, Constantes.PORTE_AMONT_MIN_Y);
     }
 
     @Override
     public void fermer() {
-
+        bougerY(Constantes.PORTE_AMONT_MIN_Y, Constantes.PORTE_AMONT_Y);
     }
     
     public void bougerY(int depart, int fin){ 

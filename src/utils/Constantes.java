@@ -27,11 +27,11 @@ public class Constantes {
     public static final short SAS_X = PORTE_AMONT_X;   
 
     // Sas sens Direct
-    public static final short SAS_IMAGE_MAX_HEIGHT = 81;
+    public static final short SAS_IMAGE_MIN_HEIGHT = 81;
     public static final short SAS_Y_SENS_DIRECT = 475;
     
     // Sas Sens Inverse
-    public static final short SAS_IMAGE_MIN_HEIGHT = 210;
+    public static final short SAS_IMAGE_MAX_HEIGHT = 210;
     public static final short SAS_Y_SENS_INVERSE = PORTE_AMONT_Y + 26;
 
     /**
@@ -53,11 +53,31 @@ public class Constantes {
     public static final short BATEAU_X_ETAPE_3_ETAT_2 = 740 + 150;
     public static final short BATEAU_Y_ETAPE_3 = 476 - 52;
 
+    
+    // Position des feux
+    public static final short FEU_AMONT_X = 177;
+    public static final short FEU_AMONT_Y = 287;
+    
+    public static final short FEU_AVAL_X = 834;
+    public static final short FEU_AVAL_Y = 418;
+    
+    // Position des feux de Vanne
+    public static final short FEU_VANNE_AMONT_X = 288;
+    public static final short FEU_VANNE_AMONT_Y = 598;
+    
+    public static final short FEU_VANNE_AVAL_X = 730;
+    public static final short FEU_VANNE_AVAL_Y = 616;
+     
     // Differentes etapes du parcours de l'ecluse
     public static final short NIVEAU1 = 1; // Amont
     public static final short NIVEAU2 = 2; // Sas
     public static final short NIVEAU3 = 3; // Aval
 
+    // Niveau d'eau dans le Sas
+    public static final short SAS_EN_MOUVEMENT = 2;
+    public static final short SAS_NIVEAU_MAX = 1;
+    public static final short SAS_NIVEAU_MIN = 0;
+    
     // Constantes sens de parcours
     public static final short AMONT_VERS_AVAL = 1;
     public static final short AVAL_VERS_AMONT = -1;

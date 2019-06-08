@@ -12,4 +12,10 @@ public class StringConstants {
     // Texte des menu items
     public static final String TEXTE_MODE_AUTO = "Mode automatique";
     public static final String TEXTE_MODE_MANUEL = "Mode manuel";
+    
+    // Types de Feu (Feu ordinaire ou Feu d'une vanne)
+    public static final String FEU_TYPE_FEU = "FEU";
+    public static final String FEU_TYPE_VANNE_AMONT = "VANNE_AMONT";
+    public static final String FEU_TYPE_VANNE_AVAL = "VANNE_AVAL";
+
 }
