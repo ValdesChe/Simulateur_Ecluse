@@ -88,6 +88,9 @@ public class Constantes {
 
     // OffSet for menu
     public static final short MENU_OFFSET = 15;
+    
+    // Offset pour la transition
+    public static final short TRANSITION_OFFSET = -64;
 
     // Durations des transitions
     public static final Duration DUREE = Duration.millis(2000);

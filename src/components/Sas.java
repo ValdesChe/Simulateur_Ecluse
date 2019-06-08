@@ -1,6 +1,10 @@
 package components;
 
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import utils.Constantes;
 
@@ -10,6 +14,7 @@ import utils.Constantes;
 public class Sas {
     private ImageView image;
     private TranslateTransition transition;
+    private ScaleTransition scaleTransition;
     private short niveau = Constantes.SAS_NIVEAU_MAX;
     public Sas(ImageView img) {
         image = img;
@@ -41,14 +46,37 @@ public class Sas {
     }
     
     public void passerNiveauHaut(){
-        getImage().setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
-        getImage().setTranslateX(Constantes.SAS_X);
-        getImage().setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
+        scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
+        scaleTransition.fromYProperty();
+        scaleTransition.setToX(1);
+	scaleTransition.setToY(2.6);
+        transition = new TranslateTransition(Constantes.DUREE, this.getImage());
+        transition.setByY(Constantes.TRANSITION_OFFSET);
+        transition.play();
+        scaleTransition.setOnFinished(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                getImage().setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT / 2.6);
+            }
+        });
+        scaleTransition.play();
     }
     
     public void passerNiveauBas(){
-        getImage().setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
-        getImage().setTranslateX(Constantes.SAS_X);
-        getImage().setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
+        scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
+	scaleTransition.setFromY(Constantes.SAS_IMAGE_MAX_HEIGHT / this.getImage().getFitHeight());
+        scaleTransition.setToY(1);
+        transition = new TranslateTransition(Constantes.DUREE, this.getImage());
+        transition.setByY(-Constantes.TRANSITION_OFFSET);
+        transition.play();
+        scaleTransition.setOnFinished(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                getImage().setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
+            }
+        });
+        scaleTransition.play();
     }
+    
+    
 }

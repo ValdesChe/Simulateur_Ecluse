@@ -470,6 +470,9 @@ public class Ecluse extends Application {
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
                     niveauSas = Constantes.SAS_NIVEAU_MIN;
+                    if(positionActuelleBateau == Constantes.NIVEAU2){
+                        ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_2, Constantes.BATEAU_Y_ETAPE_2_ETAT_1);
+                    }
                 }
             }
         };
