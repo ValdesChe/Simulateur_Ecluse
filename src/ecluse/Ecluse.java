@@ -94,11 +94,12 @@ public class Ecluse extends Application {
         root.getChildren().add(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
-        this.initResourses(Constantes.AMONT_VERS_AVAL);
+        this.initResourses(Constantes.AVAL_VERS_AMONT);
         this.intialiserEnvironement();
     }
 
     public void intialiserEnvironement() {
+        
         addToWorld(ressources.backgroundView, 
                    ressources.sasView,  
                    ressources.feuAmontView,  
@@ -323,6 +324,20 @@ public class Ecluse extends Application {
         avalPane.add(boutonEteindreFeuAval, 3, 3);
         
         
+        
+        // GridPane pour les boutons des sens
+        GridPane boutonsSensPane = new GridPane();
+        
+        Button amontVersAval = new Button("Amont Vers Aval");
+        EventHandler<ActionEvent> clicAmontVersAval = changerSensAmontVersAval();
+        
+        Button avalVersAmont = new Button("Aval Vers Amont");
+        EventHandler<ActionEvent> clicAvalVersAmont = changerSensAvalVersAmont();
+
+        boutonsSensPane.add(amontVersAval, 0, 0);
+        boutonsSensPane.add(avalVersAmont, 0, 1);
+        
+
         // Label pour afficher les messages d'erreur eventuels
         Label messagesLabel = new Label("Messages: ");
         
@@ -331,7 +346,8 @@ public class Ecluse extends Application {
         boutonsPane.setVgap(10);
         boutonsPane.add(amontPane,0,4);
         boutonsPane.add(avalPane, 0,7);
-        boutonsPane.add(messagesLabel, 0,10);
+        boutonsPane.add(boutonsSensPane, 0,9);
+        boutonsPane.add(messagesLabel, 0,11);
         
         return boutonsPane;
     }
@@ -440,6 +456,11 @@ public class Ecluse extends Application {
                         ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_1_ETAT_1,Constantes.BATEAU_X_ETAPE_2_ETAT_1);
                         positionActuelleBateau = Constantes.NIVEAU2;
                     }
+                    else if(positionActuelleBateau == Constantes.NIVEAU2 && sensCirculation == Constantes.AVAL_VERS_AMONT){
+                        ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_2_ETAT_1,Constantes.BATEAU_X_ETAPE_1_ETAT_1);
+                        positionActuelleBateau = Constantes.NIVEAU2;
+                        // Reinitialiser le monde
+                    }
                 } else{
                     System.out.println("Le feu ne peut etre allume car la porte amont est fermee ");
                 }
@@ -474,15 +495,20 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                // Si la vanne Aval est ouverte, erreur
+                if(ressources.porteAmont.getEtat() == Etat.OUVERT){
+                    System.out.println("La vanne ne peut pas s'ouvrir car la porte Amont est ouverte.");
+                    return;          
+                }
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au minimum, le faire monter
+                    ressources.sas.getImage().setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
                     
                     if(positionActuelleBateau == Constantes.NIVEAU2){
                         ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_2, Constantes.BATEAU_Y_ETAPE_2_ETAT_1);
                     }
-
                 }
             }
         };
@@ -581,7 +607,29 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> eteindreFeuAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Eteindre Feu Aval");
+                ressources.feuAval.setEtat(Etat.FERME);
+            }
+        };
+    }
+    
+    public EventHandler<ActionEvent> changerSensAmontVersAval(){
+        return new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent e){
+               // Reinitialiser la simulation avec le sens "direct"
+               initResourses(Constantes.AMONT_VERS_AVAL);
+               intialiserEnvironement();
+            }
+        };
+    }
+    
+    public EventHandler<ActionEvent> changerSensAvalVersAmont(){
+        return new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent e){
+                // Reinitialiser la simulation avec le sens "inverse"
+               initResourses(Constantes.AVAL_VERS_AMONT);
+               intialiserEnvironement();
             }
         };
     }

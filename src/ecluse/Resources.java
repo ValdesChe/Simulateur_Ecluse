@@ -1,6 +1,7 @@
 package ecluse;
 
 import components.Bateau;
+import components.Etat;
 import components.Feu;
 import components.Porte;
 import components.Sas;
@@ -51,7 +52,7 @@ public class Resources {
     /**
      *  Charger les ressources du Jeu
      */
-    public void chargerRessources(int sens) {
+    public void chargerRessources(short sens) {
         try {
             imageBackground = new Image(ClassHelper.class.getResourceAsStream("background.jpg"));
             porteAmontImage = new Image(ClassHelper.class.getResourceAsStream("porte.png"));
@@ -75,20 +76,11 @@ public class Resources {
         }
     }
 
-    private void attachDefaultImages(int sens) {
+    private void attachDefaultImages(short sens) {
         try {
             //
             backgroundView = new ImageView(imageBackground);
             
-            // Sas et Bateau dans le sens Direct
-                        
-            sasView = new ImageView(sasImage);
-            sasView.setPreserveRatio(false);
-            sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
-            sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
-            sasView.setTranslateX(Constantes.SAS_X);
-            sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
-
             // Attachement des images de feux
             
             feuAmontView = new ImageView(imageFeuAmont);
@@ -106,27 +98,47 @@ public class Resources {
             feuVanneAvalView = new ImageView(imageFeuVanneAval);
             feuVanneAvalView.setTranslateX(Constantes.FEU_VANNE_AVAL_X);
             feuVanneAvalView.setTranslateY(Constantes.FEU_VANNE_AVAL_Y);
-            
-            
-            // 
-            bateauView = new ImageView(bateauImage);
-            bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
-            bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
-            
+                        
             // Sas et Bateau si on est dans le sens inverse
+            sasView = new ImageView(sasImage);
             if(sens == Constantes.AVAL_VERS_AMONT){
                 // Sas dans le sens inverse: Aval Vers Amont
+                sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
+                sasView.setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
+                sasView.setTranslateX(Constantes.SAS_X);
+                sasView.setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
+                sas = new Sas(sasView);
+                sas.setEtat(Constantes.SAS_NIVEAU_MAX);
+                //sas.passerNiveauHaut();
+                
+                // Bateau dans le sens inverse
+                bateauView = new ImageView(bateauImage);
+                bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_3_ETAT_2);
+                bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_3);
+                bateau = new Bateau(bateauView);
+            }
+            else{
+                // Sas et Bateau dans le sens Direct
+                sasView = new ImageView(sasImage);
                 sasView.setPreserveRatio(false);
                 sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
                 sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
                 sasView.setTranslateX(Constantes.SAS_X);
-                sasView.setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
+                sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT);
+                sas = new Sas(sasView);
+                sas.setEtat(Constantes.SAS_NIVEAU_MIN);
                 
-                // Bateau dans le sens inverse
+                // 
                 bateauView = new ImageView(bateauImage);
                 bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
                 bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
+                bateau = new Bateau(bateauView);
+
             }
+            
+            
+                
+            
             //
             porteAmontView = new ImageView(porteAmontImage);
             porteAmontView.setTranslateX(Constantes.PORTE_AMONT_X);
@@ -139,10 +151,6 @@ public class Resources {
             porteAvalView.setTranslateY(Constantes.PORTE_AVAL_Y);
             porteAval = new Porte(porteAvalView);
             
-            // Initialisation des objets
-            sas = new Sas(sasView);
-            sas.setEtat(sens == Constantes.AMONT_VERS_AVAL ? Constantes.SAS_NIVEAU_MIN : Constantes.SAS_NIVEAU_MAX); 
-            bateau = new Bateau(bateauView);
             
             feuAmont = new Feu(feuAmontView, StringConstants.FEU_TYPE_FEU);
             feuAval = new Feu(feuAvalView, StringConstants.FEU_TYPE_FEU);
