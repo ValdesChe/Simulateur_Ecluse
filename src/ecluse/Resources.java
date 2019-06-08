@@ -141,6 +141,7 @@ public class Resources {
             
             // Initialisation des objets
             sas = new Sas(sasView);
+            sas.setEtat(sens == Constantes.AMONT_VERS_AVAL ? Constantes.SAS_NIVEAU_MIN : Constantes.SAS_NIVEAU_MAX); 
             bateau = new Bateau(bateauView);
             
             feuAmont = new Feu(feuAmontView, StringConstants.FEU_TYPE_FEU);

@@ -8,7 +8,7 @@ import javafx.util.Duration;
 public class Constantes {
 
     // Dimensions de la fenetre
-    public static final int WINDOWS_WIDTH = 1100;
+    public static final int WINDOWS_WIDTH = 1320;
     public static final int WINDOWS_HEIGHT = 650;
 
 

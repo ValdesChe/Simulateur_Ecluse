@@ -345,15 +345,25 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                // Si la vanne Aval est ouverte, erreur
+                if(ressources.porteAval.getEtat() == Etat.OUVERT){
+                    System.out.println("La vanne ne peut pas s'ouvrir car la porte Aval est ouverte.");
+                    return;          
+                }
+                
                 // La vanne aval doit s'ouvrir si la porte amont est fermee
                 // Et le niveau d'eau dans le sas est stable (Max ou Min)
-                if(niveauSas == Constantes.SAS_NIVEAU_MIN){
+                if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MIN){
                     ressources.feuVanneAmont.allumer(ressources);
                     ressources.feuVanneAmont.setEtat(Etat.OUVERT);
                     // Le sas est au minimum, le faire monter
                     ressources.sas.passerNiveauHaut();
+                    
+                    if(positionActuelleBateau == Constantes.NIVEAU2 && ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MIN){
+                        // Faire monter le bateau si il est sur le Sas
+                        ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_1, Constantes.BATEAU_Y_ETAPE_2_ETAT_2);
+                    }
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MAX);
-                    niveauSas = Constantes.SAS_NIVEAU_MAX;
                 }
             }
         };
@@ -377,7 +387,7 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirPorteAmont(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(niveauSas == Constantes.SAS_NIVEAU_MIN){
+                if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MIN){
                     System.out.println("La porte amont ne peut pas s'ouvrir a cause de la pression. ");
                 }
                 else{
@@ -385,8 +395,7 @@ public class Ecluse extends Application {
                         ressources.porteAmont.ouvrir();
                         ressources.porteAmont.setEtat(Etat.OUVERT);
                     }
-                }
-                
+                }  
             }
         };
     }
@@ -427,7 +436,7 @@ public class Ecluse extends Application {
                     ressources.feuAmont.allumer(ressources);
                     ressources.feuAmont.setEtat(Etat.OUVERT);
                     // Si le bateau est dans le premier niveau, le faire passer vers le deuxieme
-                    if(positionActuelleBateau == Constantes.NIVEAU1){
+                    if(positionActuelleBateau == Constantes.NIVEAU1  && sensCirculation == Constantes.AMONT_VERS_AVAL){
                         ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_1_ETAT_1,Constantes.BATEAU_X_ETAPE_2_ETAT_1);
                         positionActuelleBateau = Constantes.NIVEAU2;
                     }
@@ -465,14 +474,15 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(niveauSas == Constantes.SAS_NIVEAU_MAX){
+                if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au minimum, le faire monter
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
-                    niveauSas = Constantes.SAS_NIVEAU_MIN;
+                    
                     if(positionActuelleBateau == Constantes.NIVEAU2){
                         ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_2, Constantes.BATEAU_Y_ETAPE_2_ETAT_1);
                     }
+
                 }
             }
         };
@@ -484,11 +494,10 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                if(niveauSas == Constantes.SAS_NIVEAU_MAX){
+                if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au minimum, le faire monter
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
-                    niveauSas = Constantes.SAS_NIVEAU_MIN;
                 }
             }
         };
@@ -500,7 +509,15 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirPorteAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Ouvrir Porte Aval");
+                if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
+                    System.out.println("La porte aval ne peut pas s'ouvrir a cause de la pression. ");
+                }
+                else{
+                    if(ressources.porteAval.getEtat() != Etat.OUVERT){
+                        ressources.porteAval.ouvrir();
+                        ressources.porteAval.setEtat(Etat.OUVERT);
+                    }
+                }
             }
         };
     }
@@ -511,7 +528,18 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerPorteAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Fermer Porte Aval");
+                if(ressources.feuAval.getEtat() == Etat.OUVERT){
+                    System.out.println("La porte aval ne peut pas se fermer car un bateau peut passer . ");
+                }
+                else{
+                    if(ressources.porteAval.getEtat() == Etat.FERME){
+                        System.out.println("La porte est deja fermee");
+                        return;
+                    }
+                        
+                   ressources.porteAval.fermer();
+                   ressources.porteAval.setEtat(Etat.FERME);
+                }
             }
         };
     }
@@ -522,7 +550,27 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> allumerFeuAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                System.out.println("Allumer Feu Aval");
+                if(ressources.feuAval.getEtat() == Etat.OUVERT) {
+                    System.out.println("Le feu est deja ouvert");
+                    return;
+                }
+                if(ressources.porteAval.getEtat() == Etat.OUVERT) {
+                    ressources.feuAval.allumer(ressources);
+                    ressources.feuAval.setEtat(Etat.OUVERT);
+                    // Si le bateau est dans le premier niveau, le faire passer vers le deuxieme
+                    if(positionActuelleBateau == Constantes.NIVEAU2 && sensCirculation == Constantes.AMONT_VERS_AVAL){
+                        ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_2_ETAT_1,Constantes.BATEAU_X_ETAPE_3_ETAT_2);
+                        positionActuelleBateau = Constantes.NIVEAU3;
+                        // Reinitialiser
+                    }
+                    if(positionActuelleBateau == Constantes.NIVEAU3 && sensCirculation == Constantes.AVAL_VERS_AMONT){
+                        ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_3_ETAT_2, Constantes.BATEAU_X_ETAPE_2_ETAT_1);
+                        positionActuelleBateau = Constantes.NIVEAU2;
+                        // Reinitialiser
+                    }
+                } else{
+                    System.out.println("Le feu ne peut etre allume car la porte amont est fermee ");
+                }
             }
         };
     }
