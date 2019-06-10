@@ -5,6 +5,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ public class Ecluse extends Application {
     BorderPane borderPane;
     Pane gameContainer;
     GridPane ecluseControlsContainer;
-
+    Label messagesLabel = new Label("");
 
     // Variables de controle de l'etat ecluse
 
@@ -41,7 +42,7 @@ public class Ecluse extends Application {
     public short positionActuelleBateau = Constantes.NIVEAU1;
 
     // Sens de circulation du bateau
-    public short sensCirculation = Constantes.AMONT_VERS_AVAL;
+    public short sensCirculation = Constantes.AVAL_VERS_AMONT;
 
 
     @Override
@@ -118,7 +119,24 @@ public class Ecluse extends Application {
         this.positionActuelleBateau = (sens == Constantes.AMONT_VERS_AVAL) ? Constantes.NIVEAU1 : Constantes.NIVEAU3;
         ressources.chargerRessources(sens);
     }
+    
+    
+    public BorderPane centralPane(){
+        BorderPane bp = new BorderPane();
+        gameContainer = new Pane();
+        ecluseControlsContainer = boutonsPane();
 
+        // Faire un Render des boutons de controle)
+        bp.setLeft(ecluseControlsContainer);
+        // Fin boutons de controle
+
+        bp.prefHeight(Constantes.WINDOWS_HEIGHT);
+        bp.prefWidthProperty().bind(scene.widthProperty());
+
+        bp.setCenter(gameContainer);
+        
+        return bp;
+    }
 
     private EventHandler<ActionEvent> clicSurMenu() {
         return new EventHandler<ActionEvent>() {
@@ -328,17 +346,17 @@ public class Ecluse extends Application {
         GridPane boutonsSensPane = new GridPane();
         
         Button amontVersAval = new Button("Amont Vers Aval");
-        EventHandler<ActionEvent> clicAmontVersAval = changerSensAmontVersAval();
+        amontVersAval.setOnAction(e -> remiseAZero(Constantes.AMONT_VERS_AVAL));
         
         Button avalVersAmont = new Button("Aval Vers Amont");
-        EventHandler<ActionEvent> clicAvalVersAmont = changerSensAvalVersAmont();
-
+        avalVersAmont.setOnAction(e -> remiseAZero(Constantes.AVAL_VERS_AMONT));
+        
         boutonsSensPane.add(amontVersAval, 0, 0);
         boutonsSensPane.add(avalVersAmont, 0, 1);
         
 
         // Label pour afficher les messages d'erreur eventuels
-        Label messagesLabel = new Label("Messages: ");
+        
         
         // Attachement des Pane Amont et Aval au Pane des Boutons
         boutonsPane.setHgap(20);
@@ -363,6 +381,7 @@ public class Ecluse extends Application {
                 // Si la vanne Aval est ouverte, erreur
                 if(ressources.porteAval.getEtat() == Etat.OUVERT){
                     System.out.println("La vanne ne peut pas s'ouvrir car la porte Aval est ouverte.");
+                    messagesLabel.setText("La vanne ne peut pas s'ouvrir car\n la porte Aval est ouverte");
                     return;          
                 }
                 
@@ -403,6 +422,7 @@ public class Ecluse extends Application {
             public void handle(ActionEvent event) {
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MIN){
                     System.out.println("La porte amont ne peut pas s'ouvrir a cause de la pression. ");
+                    messagesLabel.setText("La porte amont ne peut pas \ns'ouvrir a cause de la pression.");
                 }
                 else{
                     if(ressources.porteAmont.getEtat() != Etat.OUVERT){
@@ -422,10 +442,12 @@ public class Ecluse extends Application {
             public void handle(ActionEvent event) {
                 if(ressources.feuAmont.getEtat() == Etat.OUVERT){
                     System.out.println("La porte amont ne peut pas se fermer car un bateau peut passer . ");
+                    messagesLabel.setText("La porte amont ne peut pas se fermer\ncar un bateau peut passer . ");
                 }
                 else{
                     if(ressources.porteAmont.getEtat() == Etat.FERME){
                         System.out.println("La porte est deja fermee");
+                        messagesLabel.setText("La porte est deja fermee");
                         return;
                     }
                         
@@ -444,6 +466,7 @@ public class Ecluse extends Application {
             public void handle(ActionEvent event) {
                 if(ressources.feuAmont.getEtat() == Etat.OUVERT) {
                     System.out.println("Le feu est deja ouvert");
+                    messagesLabel.setText("Le feu est deja ouvert");
                     return;
                 }
                 if(ressources.porteAmont.getEtat() == Etat.OUVERT) {
@@ -458,9 +481,12 @@ public class Ecluse extends Application {
                         ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_2_ETAT_1,Constantes.BATEAU_X_ETAPE_1_ETAT_1);
                         positionActuelleBateau = Constantes.NIVEAU1;
                         // Reinitialiser le monde
+                        
                     }
                 } else{
                     System.out.println("Le feu ne peut etre allume car la porte amont est fermee ");
+                    messagesLabel.setText("Le feu ne peut etre allume \ncar la porte amont est fermee ");
+                    
                 }
             }
         };
@@ -473,7 +499,8 @@ public class Ecluse extends Application {
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                if(ressources.feuAmont.getEtat() == Etat.FERME) {
-                    System.out.println("Le feu est deja ferme");
+                    System.out.println("Le feu est deja eteint !");
+                    messagesLabel.setText("Le feu est deja eteint !");
                     return;
                 }
                 if(ressources.feuAmont.getEtat() == Etat.OUVERT) {
@@ -496,6 +523,7 @@ public class Ecluse extends Application {
                 // Si la vanne Aval est ouverte, erreur
                 if(ressources.porteAmont.getEtat() == Etat.OUVERT){
                     System.out.println("La vanne ne peut pas s'ouvrir car la porte Amont est ouverte.");
+                    messagesLabel.setText("La vanne ne peut pas s'ouvrir car\n la porte Amont est ouverte.");
                     return;          
                 }
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
@@ -543,7 +571,8 @@ public class Ecluse extends Application {
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
-                    System.out.println("La porte aval ne peut pas s'ouvrir a cause de la pression. ");
+                    System.out.println("La porte aval ne peut pas s'ouvrir a cause de la pression.");
+                    messagesLabel.setText("La porte aval ne peut pas s'ouvrir \na cause de la pression.");
                 }
                 else{
                     if(ressources.porteAval.getEtat() != Etat.OUVERT){
@@ -562,11 +591,13 @@ public class Ecluse extends Application {
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(ressources.feuAval.getEtat() == Etat.OUVERT){
-                    System.out.println("La porte aval ne peut pas se fermer car un bateau peut passer . ");
+                    System.out.println("La porte aval ne peut pas se fermer car un bateau peut passer.");
+                    messagesLabel.setText("(\"La porte aval ne peut pas se \nfermer car un bateau peut passer");
                 }
                 else{
                     if(ressources.porteAval.getEtat() == Etat.FERME){
                         System.out.println("La porte est deja fermee");
+                        messagesLabel.setText("La porte est deja fermee");
                         return;
                     }
                         
@@ -602,7 +633,8 @@ public class Ecluse extends Application {
                         // Reinitialiser
                     }
                 } else{
-                    System.out.println("Le feu ne peut etre allume car la porte amont est fermee ");
+                    System.out.println("Le feu ne peut etre allume car la porte amont est fermee");
+                    messagesLabel.setText("Le feu ne peut etre allume \ncar la porte amont est fermee");
                 }
             }
         };
@@ -619,25 +651,23 @@ public class Ecluse extends Application {
         };
     }
     
-    public EventHandler<ActionEvent> changerSensAmontVersAval(){
-        return new EventHandler<ActionEvent>() {
-            @Override 
-            public void handle(ActionEvent e){
-               // Reinitialiser la simulation avec le sens "direct"
-               initResourses(Constantes.AMONT_VERS_AVAL);
-               intialiserEnvironement();
-            }
-        };
-    }
-    
-    public EventHandler<ActionEvent> changerSensAvalVersAmont(){
-        return new EventHandler<ActionEvent>() {
-            @Override 
-            public void handle(ActionEvent e){
-                // Reinitialiser la simulation avec le sens "inverse"
-               initResourses(Constantes.AVAL_VERS_AMONT);
-               intialiserEnvironement();
-            }
-        };
+      
+    /**
+     * Remettre a 0 les proprietes de l'Ecluse
+     */
+    public void remiseAZero(short sens){
+        sensCirculation = sens;
+        modeFonctionnement = Constantes.MODE_MANUEL;
+
+        if(sens == Constantes.AMONT_VERS_AVAL){
+            positionActuelleBateau = Constantes.NIVEAU1;
+            ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
+        }
+        else{
+            positionActuelleBateau = Constantes.NIVEAU3;
+            ressources.sas.setEtat(Constantes.SAS_NIVEAU_MAX);
+        }
+        initResourses(sensCirculation); 
+        intialiserEnvironement();
     }
 }
