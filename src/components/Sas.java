@@ -47,6 +47,7 @@ public class Sas {
     
     public void passerNiveauHaut(){
         scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
+        scaleTransition.setAutoReverse(false);
         scaleTransition.setToX(1);
 	scaleTransition.setToY(2.6);
         transition = new TranslateTransition(Constantes.DUREE, this.getImage());
@@ -61,10 +62,12 @@ public class Sas {
         transition.play();
         scaleTransition.play();
     }
-    
+        
     public void passerNiveauBas(){
         scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
-	scaleTransition.setFromY(Constantes.SAS_IMAGE_MAX_HEIGHT / this.getImage().getFitHeight());
+	scaleTransition.setAutoReverse(false);
+
+        scaleTransition.setFromY(2.6);
         scaleTransition.setToY(1);
         transition = new TranslateTransition(Constantes.DUREE, this.getImage());
         transition.setByY(-Constantes.TRANSITION_OFFSET);
@@ -72,7 +75,7 @@ public class Sas {
         scaleTransition.setOnFinished(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent) {
-                getImage().setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
+                //getImage().setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT / 2.6);
             }
         });
         transition.play();

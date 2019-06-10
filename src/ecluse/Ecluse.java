@@ -1,6 +1,7 @@
 package ecluse;
 
 import components.Etat;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,9 +42,6 @@ public class Ecluse extends Application {
 
     // Sens de circulation du bateau
     public short sensCirculation = Constantes.AMONT_VERS_AVAL;
-
-    //
-    public short niveauSas = Constantes.SAS_NIVEAU_MIN;
 
 
     @Override
@@ -94,7 +92,8 @@ public class Ecluse extends Application {
         root.getChildren().add(borderPane);
         primaryStage.setScene(scene);
         primaryStage.show();
-        this.initResourses(Constantes.AVAL_VERS_AMONT);
+        
+        this.initResourses(sensCirculation);
         this.intialiserEnvironement();
     }
 
@@ -374,7 +373,6 @@ public class Ecluse extends Application {
                     ressources.feuVanneAmont.setEtat(Etat.OUVERT);
                     // Le sas est au minimum, le faire monter
                     ressources.sas.passerNiveauHaut();
-                    
                     if(positionActuelleBateau == Constantes.NIVEAU2 && ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MIN){
                         // Faire monter le bateau si il est sur le Sas
                         ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_1, Constantes.BATEAU_Y_ETAPE_2_ETAT_2);
@@ -458,7 +456,7 @@ public class Ecluse extends Application {
                     }
                     else if(positionActuelleBateau == Constantes.NIVEAU2 && sensCirculation == Constantes.AVAL_VERS_AMONT){
                         ressources.bateau.bougerX(Constantes.BATEAU_X_ETAPE_2_ETAT_1,Constantes.BATEAU_X_ETAPE_1_ETAT_1);
-                        positionActuelleBateau = Constantes.NIVEAU2;
+                        positionActuelleBateau = Constantes.NIVEAU1;
                         // Reinitialiser le monde
                     }
                 } else{
@@ -502,10 +500,19 @@ public class Ecluse extends Application {
                 }
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au minimum, le faire monter
-                    ressources.sas.getImage().setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
+                    ressources.sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
+                    ressources.sasView.setTranslateY(Constantes.SAS_Y_SENS_DIRECT + Constantes.TRANSITION_OFFSET);
+
+                    // Tricher Un Peu
+                    if(sensCirculation == Constantes.AVAL_VERS_AMONT){
+                        TranslateTransition tr = new TranslateTransition(Constantes.DUREE, ressources.sas.getImage());
+                        tr.setByY(-Constantes.TRANSITION_OFFSET);
+                        tr.play();
+                    }
                     
+                    //
                     if(positionActuelleBateau == Constantes.NIVEAU2){
                         ressources.bateau.bougerY(Constantes.BATEAU_Y_ETAPE_2_ETAT_2, Constantes.BATEAU_Y_ETAPE_2_ETAT_1);
                     }
@@ -521,7 +528,7 @@ public class Ecluse extends Application {
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
-                    // Le sas est au minimum, le faire monter
+                    // Le sas est au maximum, le faire descendre
                     ressources.sas.passerNiveauBas();
                     ressources.sas.setEtat(Constantes.SAS_NIVEAU_MIN);
                 }

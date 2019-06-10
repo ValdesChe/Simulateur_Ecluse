@@ -103,13 +103,13 @@ public class Resources {
             sasView = new ImageView(sasImage);
             if(sens == Constantes.AVAL_VERS_AMONT){
                 // Sas dans le sens inverse: Aval Vers Amont
+                sasView.setPreserveRatio(false);
                 sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
                 sasView.setFitHeight(Constantes.SAS_IMAGE_MAX_HEIGHT);
                 sasView.setTranslateX(Constantes.SAS_X);
                 sasView.setTranslateY(Constantes.SAS_Y_SENS_INVERSE);
                 sas = new Sas(sasView);
                 sas.setEtat(Constantes.SAS_NIVEAU_MAX);
-                //sas.passerNiveauHaut();
                 
                 // Bateau dans le sens inverse
                 bateauView = new ImageView(bateauImage);
@@ -119,7 +119,6 @@ public class Resources {
             }
             else{
                 // Sas et Bateau dans le sens Direct
-                sasView = new ImageView(sasImage);
                 sasView.setPreserveRatio(false);
                 sasView.setFitWidth(Constantes.SAS_IMAGE_WIDTH);
                 sasView.setFitHeight(Constantes.SAS_IMAGE_MIN_HEIGHT);
@@ -133,7 +132,6 @@ public class Resources {
                 bateauView.setTranslateX(Constantes.BATEAU_X_ETAPE_1_ETAT_1);
                 bateauView.setTranslateY(Constantes.BATEAU_Y_ETAPE_1);
                 bateau = new Bateau(bateauView);
-
             }
             
             
