@@ -520,12 +520,13 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> ouvrirVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                // Si la vanne Aval est ouverte, erreur
+                // Si la porte Amont est ouverte, erreur
                 if(ressources.porteAmont.getEtat() == Etat.OUVERT){
                     System.out.println("La vanne ne peut pas s'ouvrir car la porte Amont est ouverte.");
                     messagesLabel.setText("La vanne ne peut pas s'ouvrir car\n la porte Amont est ouverte.");
                     return;          
                 }
+
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au minimum, le faire monter
                     ressources.sas.passerNiveauBas();
@@ -555,6 +556,20 @@ public class Ecluse extends Application {
     public EventHandler<ActionEvent> fermerVanneAval(){
         return new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                // Si la vanne est deja ferme eviter de descendre le niveau d'eau
+                if(ressources.porteAmont.getEtat() == Etat.OUVERT){
+                    System.out.println("La vanne ne peut pas se fermer car deja fermée.");
+                    messagesLabel.setText("La vanne ne peut pas se fermer car\n deja fermée.");
+                    return;
+                }
+
+                // Si la porte aval est ouverte, erreur
+                if(ressources.porteAmont.getEtat() == Etat.OUVERT){
+                    System.out.println("La vanne ne peut pas s'ouvrir car la porte Amont est ouverte.");
+                    messagesLabel.setText("La vanne ne peut pas s'ouvrir car\n la porte Amont est ouverte.");
+                    return;
+                }
+
                 if(ressources.sas.getEtat() == Constantes.SAS_NIVEAU_MAX){
                     // Le sas est au maximum, le faire descendre
                     ressources.sas.passerNiveauBas();
