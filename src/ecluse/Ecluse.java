@@ -3,20 +3,22 @@ package ecluse;
 import components.Etat;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import utils.Constantes;
 import utils.StringConstants;
 
@@ -247,7 +249,8 @@ public class Ecluse extends Application {
         // GridPane contenant tous Boutons de controle + Messages label
         GridPane boutonsPane = new GridPane();
         boutonsPane.setMinWidth(Constantes.WINDOWS_WIDTH / 5);
-        
+        boutonsPane.setPadding(new Insets(10,10,10,20));
+
         /**
          * Amont de type GridPane contenant tous les boutons
          */
@@ -365,7 +368,101 @@ public class Ecluse extends Application {
         boutonsPane.add(avalPane, 0,7);
         boutonsPane.add(boutonsSensPane, 0,9);
         boutonsPane.add(messagesLabel, 0,11);
-        
+
+
+        /*
+            Pane des vitesses d'objets
+         */
+
+
+        final Slider vitesseBateauSlider = new Slider(500, 3000, 1);
+        final Slider vitessePortesSlider = new Slider(500, 3000, 1);
+        final Slider tempsAttenteSlider = new Slider(500, 3000, 1);
+
+
+        final Label vitesseBateauLabel = new Label("Vitesse Bateau:");
+        final Label vitessePortesLabel = new Label("Vitesse des portes :");
+        final Label tempsAttenteLabel = new Label("Vitesse attente");
+
+        final Label vitesseBateauValue = new Label(
+                Double.toString(vitesseBateauSlider.getValue()));
+        final Label vitessePortesValue = new Label(
+                Double.toString(vitessePortesSlider.getValue()));
+        final Label tempsAttenteValue = new Label(
+                Double.toString(tempsAttenteSlider.getValue()));
+
+        final  Color textColor = Color.BLACK;
+
+        GridPane grid = new GridPane();
+        grid.setVgap(5);
+        grid.setHgap(10);
+
+        /*
+            Vitesse bateau composants
+         */
+
+        vitesseBateauLabel.setTextFill(textColor);
+        GridPane.setConstraints(vitesseBateauLabel, 0, 1);
+        grid.getChildren().add(vitesseBateauLabel);
+        vitesseBateauSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                ressources.bateau.setVitesseDeplacement(Duration.millis( vitesseBateauSlider.getMax() - (Double)new_val));
+                vitesseBateauValue.setText(String.format("%.2f", new_val));
+            }
+        });
+
+        GridPane.setConstraints(vitesseBateauSlider, 0, 2);
+        grid.getChildren().add(vitesseBateauSlider);
+
+        vitesseBateauValue.setTextFill(textColor);
+        GridPane.setConstraints(vitesseBateauValue, 1, 2);
+        grid.getChildren().add(vitesseBateauValue);
+
+        /*
+            Vitesse ouverture et fermture de Portes
+         */
+        vitessePortesLabel.setTextFill(textColor);
+        GridPane.setConstraints(vitessePortesLabel, 0, 3);
+        grid.getChildren().add(vitessePortesLabel);
+        vitessePortesSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                ressources.porteAval.setVitesseDeplacement(Duration.millis( vitessePortesSlider.getMax() - (Double)new_val));
+                ressources.porteAmont.setVitesseDeplacement(Duration.millis( vitessePortesSlider.getMax() - (Double)new_val));
+                vitessePortesValue.setText(String.format("%.2f", new_val));
+            }
+        });
+
+        GridPane.setConstraints(vitessePortesSlider, 0, 4);
+        grid.getChildren().add(vitessePortesSlider);
+
+        vitessePortesValue.setTextFill(textColor);
+        GridPane.setConstraints(vitessePortesValue, 1, 4);
+        grid.getChildren().add(vitessePortesValue);
+
+
+
+        /*
+            Temps attente
+         */
+        tempsAttenteLabel.setTextFill(textColor);
+        GridPane.setConstraints(tempsAttenteLabel, 0, 5);
+        grid.getChildren().add(tempsAttenteLabel);
+
+        tempsAttenteSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                tempsAttenteValue.setText(String.format("%.2f", new_val));
+            }
+        });
+        GridPane.setConstraints(tempsAttenteSlider, 0, 6);
+        grid.getChildren().add(tempsAttenteSlider);
+
+        tempsAttenteValue.setTextFill(textColor);
+        GridPane.setConstraints(tempsAttenteValue, 1, 6);
+        grid.getChildren().add(tempsAttenteValue);
+        boutonsPane.add(grid, 0,12);
         return boutonsPane;
     }
     

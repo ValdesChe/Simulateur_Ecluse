@@ -2,6 +2,7 @@ package components;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import utils.Constantes;
 
 /**
@@ -10,12 +11,17 @@ import utils.Constantes;
 public class Porte extends Equipement {
     private TranslateTransition transition;
 
+    private Duration vitesseDeplacement = Constantes.DUREE;
     public Porte(ImageView image, Etat etat) {
         super(image, etat);
     }
 
     public Porte(ImageView image) {
         super(image);
+    }
+
+    public void setVitesseDeplacement(Duration duration){
+        this.vitesseDeplacement = duration;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class Porte extends Equipement {
         transition = new TranslateTransition();
         transition.setNode(getImage());
         transition.setByY(fin - depart);
-        transition.setDuration(Constantes.DUREE);
+        transition.setDuration(vitesseDeplacement);
         transition.setCycleCount(1);
         transition.setAutoReverse(false);
         transition.play();
