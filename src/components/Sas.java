@@ -11,7 +11,7 @@ import utils.Constantes;
 /**
  * @author Mohammed Yassine Chraibi 
  */
-public class Sas {
+public class Sas extends Thread {
     private ImageView image;
     private TranslateTransition transition;
     private ScaleTransition scaleTransition;
@@ -35,21 +35,13 @@ public class Sas {
     public void setEtat(short n){
         niveau = n;
     }
-    public void bougerY(int depart, int fin){ 
-        transition = new TranslateTransition();
-        transition.setNode(getImage());
-        transition.setByY(fin - depart);
-        transition.setDuration(Constantes.DUREE);
-        transition.setCycleCount(1);
-        transition.setAutoReverse(false);
-        transition.play();
-    }
+
     
     public void passerNiveauHaut(){
         scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
         scaleTransition.setAutoReverse(false);
         scaleTransition.setToX(1);
-	scaleTransition.setToY(2.6);
+	    scaleTransition.setToY(2.6);
         transition = new TranslateTransition(Constantes.DUREE, this.getImage());
         transition.setByY(Constantes.TRANSITION_OFFSET);
         
@@ -64,8 +56,9 @@ public class Sas {
     }
         
     public void passerNiveauBas(){
+
         scaleTransition = new ScaleTransition(Constantes.DUREE, this.getImage());
-	scaleTransition.setAutoReverse(false);
+	    scaleTransition.setAutoReverse(false);
 
         scaleTransition.setFromY(2.6);
         scaleTransition.setToY(1);

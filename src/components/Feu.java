@@ -6,20 +6,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utils.Constantes;
 import ressources.ClassHelper;
+import utils.Etat;
 import utils.StringConstants;
 
 /**
  * Created by ValdoR on 2019-06-05.
  */
-public class Feu extends Equipement {
+public class Feu extends Thread {
     private TranslateTransition transition;
     private String type;
+    private ImageView image;
+    private Etat etat = Etat.FERME;
+
     public Feu(ImageView image, Etat etat) {
-        super(image, etat);
+        this.image = image;
+        this.etat = etat;
     }
 
     public Feu(ImageView image, String type) {
-        super(image, Etat.FERME);
+        this.image = image;
         setType(type);
     }
     
@@ -65,16 +70,7 @@ public class Feu extends Equipement {
             this.setImage(res.feuVanneAvalView);
         }  
     }
-    
-    @Override
-    public void ouvrir() {
-        
-    }
-    
-    @Override
-    public void fermer() {
-        
-    }
+
     
     public String getType(){
         return type;
@@ -83,5 +79,20 @@ public class Feu extends Equipement {
     public void setType(String t){
         type = t;
     }
-    
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
+
+    public Etat getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Etat etat) {
+        this.etat = etat;
+    }
 }

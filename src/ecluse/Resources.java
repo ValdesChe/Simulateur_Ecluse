@@ -1,7 +1,6 @@
 package ecluse;
 
 import components.Bateau;
-import components.Etat;
 import components.Feu;
 import components.Porte;
 import components.Sas;
@@ -32,21 +31,21 @@ public class Resources {
     public ImageView feuAvalView;
     public ImageView feuVanneAmontView;
     public ImageView feuVanneAvalView;
-    
-    Porte porteAmont;
-    Porte porteAval;
-    
-    Feu feuAmont;
-    Feu feuAval;
-    Feu feuVanneAmont;
-    Feu feuVanneAval;
+
+    public Porte porteAmont;
+    public Porte porteAval;
+
+    public Feu feuAmont;
+    public Feu feuAval;
+    public Feu feuVanneAmont;
+    public Feu feuVanneAval;
     // Sas (Modelisee comme un rectangle)
-    Sas sas;
+    public Sas sas;
     Image sasImage;
     ImageView sasView;
 
     // Bateau
-    Bateau bateau;
+    public Bateau bateau;
     Image bateauImage;
     ImageView bateauView;
     /**

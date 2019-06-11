@@ -1,5 +1,6 @@
 package components;
 
+import ecluse.Ecluse;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -9,7 +10,7 @@ import utils.Constantes;
  *
  * @author Yassine
  */
-public class Bateau {
+public class Bateau extends Thread {
     private ImageView image;
     private Duration vitesseDeplacement = Constantes.DUREE;
     private TranslateTransition transition; 
@@ -44,7 +45,7 @@ public class Bateau {
         transition = new TranslateTransition();
         transition.setNode(getImage());
         transition.setByY(fin - depart);
-        transition.setDuration(vitesseDeplacement);
+        transition.setDuration(Constantes.DUREE);
         transition.setCycleCount(1);
         transition.setAutoReverse(false);
         transition.play();
